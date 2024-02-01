@@ -1,5 +1,6 @@
 import Stripe from 'stripe'
 import { metadata } from './layout';
+import Product from './components/Product';
 
 const getProducts = async () => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
@@ -31,7 +32,9 @@ export default async function Home() {
   console.log(products)
   return (
     <main>
-      <h1 className="text-4xl">Hello</h1>
+      {products.map(product => (
+        <Product {...product} price={product.price || 0} />
+      ))}
     </main>
   )
 }
